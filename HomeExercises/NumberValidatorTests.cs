@@ -17,18 +17,19 @@ namespace HomeExercises
         [TestCase(3, 2, true, "00.00", ExpectedResult = false)]
         [TestCase(3, 2, true, "a.sd", ExpectedResult = false)]
         [TestCase(3, 2, true, "asd", ExpectedResult = false)]
+        [TestCase(4, 2, true, "1234", ExpectedResult = true)]
         [TestCase(4, 2, true, "+1.23", ExpectedResult = true)]
+        [TestCase(4, 2, true, "-1.23", ExpectedResult = false)]
         public static bool ValidateNumber(int precision, int scale, bool onlyPositive, string value)
         {
             return new NumberValidator(precision, scale, onlyPositive).IsValidNumber(value);
         }
 
-
         [TestCase(-1, 2, true, TestName = "When precision is negative")]
         [TestCase(0, 2, true, TestName = "When precision is zero")]
         [TestCase(1, -2, true, TestName = "When scale is negative")]
         [TestCase(1, 2, false, TestName = "When scale is greater than precision")]
-        public static void Throw(int precision, int scale, bool onlyPositive)
+        public static void Constructor_ShouldThrow(int precision, int scale, bool onlyPositive)
         {
             Assert.That(() => new NumberValidator(precision, scale, onlyPositive), Throws.ArgumentException);
         }
