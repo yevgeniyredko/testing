@@ -7,20 +7,21 @@ namespace HomeExercises
 {
     public class NumberValidatorTests
     {
-        [TestCase(17, 2, true, "0", ExpectedResult = true)]
-        [TestCase(17, 2, true, "0.0", ExpectedResult = true)]
+        [TestCase(17, 2, true, null, ExpectedResult = false)]
+        [TestCase(17, 2, true, "", ExpectedResult = false)]
+        [TestCase(17, 2, true, "0.", ExpectedResult = false)]
         [TestCase(17, 2, true, "0.000", ExpectedResult = false)]
+        [TestCase(3, 2, true, "00.00", ExpectedResult = false)]
         [TestCase(3, 2, true, "-0.00", ExpectedResult = false)]
         [TestCase(3, 2, true, "+0.00", ExpectedResult = false)]
-        [TestCase(3, 2, true, "-1.23", ExpectedResult = false)]
-        [TestCase(3, 2, true, "+1.23", ExpectedResult = false)]
-        [TestCase(3, 2, true, "00.00", ExpectedResult = false)]
         [TestCase(3, 2, true, "a.sd", ExpectedResult = false)]
         [TestCase(3, 2, true, "asd", ExpectedResult = false)]
+        [TestCase(4, 2, true, "-1.23", ExpectedResult = false)]
+        [TestCase(4, 2, false, "-1.23", ExpectedResult = true)]
         [TestCase(4, 2, true, "1234", ExpectedResult = true)]
         [TestCase(4, 2, true, "+1.23", ExpectedResult = true)]
-        [TestCase(4, 2, true, "-1.23", ExpectedResult = false)]
-        public static bool ValidateNumber(int precision, int scale, bool onlyPositive, string value)
+        [TestCase(17, 2, true, "0.0", ExpectedResult = true)]
+        public static bool IsValidNumber(int precision, int scale, bool onlyPositive, string value)
         {
             return new NumberValidator(precision, scale, onlyPositive).IsValidNumber(value);
         }
@@ -29,7 +30,7 @@ namespace HomeExercises
         [TestCase(0, 2, true, TestName = "When precision is zero")]
         [TestCase(1, -2, true, TestName = "When scale is negative")]
         [TestCase(1, 2, false, TestName = "When scale is greater than precision")]
-        public static void Constructor_ShouldThrow(int precision, int scale, bool onlyPositive)
+        public static void Constructing_ShouldThrow(int precision, int scale, bool onlyPositive)
         {
             Assert.That(() => new NumberValidator(precision, scale, onlyPositive), Throws.ArgumentException);
         }
