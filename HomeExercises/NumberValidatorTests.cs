@@ -10,17 +10,17 @@ namespace HomeExercises
         [TestCase(17, 2, true, null, ExpectedResult = false)]
         [TestCase(17, 2, true, "", ExpectedResult = false)]
         [TestCase(17, 2, true, "0.", ExpectedResult = false)]
+        [TestCase(3, 2, true, "asd", ExpectedResult = false)]
+        [TestCase(3, 2, true, "a.sd", ExpectedResult = false)]
         [TestCase(17, 2, true, "0.000", ExpectedResult = false)]
         [TestCase(3, 2, true, "00.00", ExpectedResult = false)]
-        [TestCase(3, 2, true, "-0.00", ExpectedResult = false)]
+        [TestCase(3, 2, false, "-0.00", ExpectedResult = false)]
         [TestCase(3, 2, true, "+0.00", ExpectedResult = false)]
-        [TestCase(3, 2, true, "a.sd", ExpectedResult = false)]
-        [TestCase(3, 2, true, "asd", ExpectedResult = false)]
-        [TestCase(4, 2, true, "-1.23", ExpectedResult = false)]
-        [TestCase(4, 2, false, "-1.23", ExpectedResult = true)]
+        [TestCase(4, 2, true, "-1.2", ExpectedResult = false)]
+        [TestCase(4, 2, false, "-1.2", ExpectedResult = true)]
+        [TestCase(4, 2, true, "+1.2", ExpectedResult = true)]
         [TestCase(4, 2, true, "1234", ExpectedResult = true)]
         [TestCase(4, 2, true, "12.34", ExpectedResult = true)]
-        [TestCase(17, 2, true, "0.0", ExpectedResult = true)]
         public static bool IsValidNumber(int precision, int scale, bool onlyPositive, string value)
         {
             return new NumberValidator(precision, scale, onlyPositive).IsValidNumber(value);
