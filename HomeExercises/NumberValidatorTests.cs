@@ -19,7 +19,7 @@ namespace HomeExercises
         [TestCase(4, 2, true, "-1.23", ExpectedResult = false)]
         [TestCase(4, 2, false, "-1.23", ExpectedResult = true)]
         [TestCase(4, 2, true, "1234", ExpectedResult = true)]
-        [TestCase(4, 2, true, "+1.23", ExpectedResult = true)]
+        [TestCase(4, 2, true, "12.34", ExpectedResult = true)]
         [TestCase(17, 2, true, "0.0", ExpectedResult = true)]
         public static bool IsValidNumber(int precision, int scale, bool onlyPositive, string value)
         {
