@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using FluentAssertions;
 using NUnit.Framework;
 
 namespace HomeExercises
 {
     public class NumberValidatorTests
     {
-        [TestCase(17, 2, true, null, ExpectedResult = false)]
-        [TestCase(17, 2, true, "", ExpectedResult = false)]
-        [TestCase(17, 2, true, "0.", ExpectedResult = false)]
-        [TestCase(3, 2, true, "asd", ExpectedResult = false)]
-        [TestCase(3, 2, true, "a.sd", ExpectedResult = false)]
-        [TestCase(17, 2, true, "0.000", ExpectedResult = false)]
-        [TestCase(3, 2, true, "00.00", ExpectedResult = false)]
-        [TestCase(3, 2, false, "-0.00", ExpectedResult = false)]
-        [TestCase(3, 2, true, "+0.00", ExpectedResult = false)]
+        [TestCase(4, 2, true, null, ExpectedResult = false)]
+        [TestCase(4, 2, true, "", ExpectedResult = false)]
+        [TestCase(4, 2, true, "0.", ExpectedResult = false)]
+        [TestCase(4, 2, true, ".0", ExpectedResult = false)]
+        [TestCase(4, 2, true, "asd", ExpectedResult = false)]
+        [TestCase(4, 2, true, "a.sd", ExpectedResult = false)]
+        [TestCase(4, 2, true, "00000", ExpectedResult = false)]
+        [TestCase(4, 2, true, "000.00", ExpectedResult = false)]
+        [TestCase(4, 2, true, "0.000", ExpectedResult = false)]
+        [TestCase(4, 2, false, "-0000", ExpectedResult = false)]
+        [TestCase(4, 2, true, "+0000", ExpectedResult = false)]
         [TestCase(4, 2, true, "-1.2", ExpectedResult = false)]
         [TestCase(4, 2, false, "-1.2", ExpectedResult = true)]
         [TestCase(4, 2, true, "+1.2", ExpectedResult = true)]
@@ -25,7 +26,7 @@ namespace HomeExercises
         {
             return new NumberValidator(precision, scale, onlyPositive).IsValidNumber(value);
         }
-
+        
         [TestCase(-1, 2, true, TestName = "When precision is negative")]
         [TestCase(0, 2, true, TestName = "When precision is zero")]
         [TestCase(1, -2, true, TestName = "When scale is negative")]
